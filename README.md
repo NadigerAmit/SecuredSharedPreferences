@@ -87,28 +87,28 @@ EncryptedData  : The output of  encryption and input to Decryption.
 ### Storage media
     SharedPreference
 ## Master Key generation :
-This is independent of keyStore .(Used in device with api >=18 && <23  for big data )
-Create symmetric key(MASTER) with one of default Java Providers.  The most common default Java provider in android is the cut version of BC provider created by the popular third party Java cryptographic library provider — Bouncy Castle.
-Encrypt / decrypt message with it. 
-Then encrypt this key raw data with RSA public key and save it in shared preference or somewhere.
- On decryption, get encrypted raw key data,  decrypt it with RSA private key and use it for message decryption.
+     This is independent of keyStore .(Used in device with api >=18 && <23  for big data )
+     Create symmetric key(MASTER) with one of default Java Providers.
+     The most common default Java provider in android is the cut version of BC provider created by the popular third party Java cryptographic library provider — Bouncy Castle.
+     Encrypt / decrypt message with it. 
+     Then encrypt this key raw data with RSA public key and save it in shared preference or somewhere.
+     On decryption, get encrypted raw key data,  decrypt it with RSA private key and use it for message decryption.
  
 ### Types of Encryption/Decryption:
- There are 3 types of Encryption/ Decryption
+There are 3 types of Encryption/ Decryption
 
 #### Symmetric(secret key)        
-same secret key to both encrypt and decrypt the data.
+    same secret key to both encrypt and decrypt the data.
 #### Asymmetric(public key cryptography)
-Uses a public(Encryption)/private(Decryption) key pair to encrypt data(Usually case ). 
-In below case Reverse is used (Public: Decrypt , Private: Encrypt). 
+    Uses a public(Encryption)/private(Decryption) key pair to encrypt data(Usually case ). 
+    In below case Reverse is used (Public: Decrypt , Private: Encrypt). 
+    Asymmetric is not suitable for large data , Please see Hybrid for this.
+    
+    In case of Digital signature authorization => the authority uses their private key to encrypt the contents of the certificate, and this cipher text is attached to the certificate as its digital signature. 
 
-Asymmetric is not suitable for large data , Please see Hybrid for this.
+    Anyone can decrypt this signature using the authority’s public key, and verify that it results in the expected decrypted value. 
 
-In case of Digital signature authorization => the authority uses their private key to encrypt the contents of the certificate, and this cipher text is attached to the certificate as its digital signature. 
-
-Anyone can decrypt this signature using the authority’s public key, and verify that it results in the expected decrypted value. 
-
-Only the authority can encrypt content using the private key, and so only the authority can actually create a valid signature in the first place.
+    Only the authority can encrypt content using the private key, and so only the authority can actually create a valid signature in the first place.
 
 #### Hybrid (Symmetric + Asymmetric ) 
    Symmetric (Secret) Key used to encrypt, decrypts the actual info , This secret key it self encrypted using Asymmetric (public/private).
