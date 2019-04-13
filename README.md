@@ -113,34 +113,25 @@ There are 3 types of Encryption/ Decryption
 #### Hybrid (Symmetric + Asymmetric ) 
     Symmetric (Secret) Key used to encrypt, decrypts the actual info , This secret key it self encrypted using Asymmetric (public/private).
 ### Overall flow management of Keystore , encryption ,Decryption , Cipher :
-    1. Create a class called "CryptoService.java" which abstracts  following component  . So  it acts as block box containing "Keystore , cipher (encryption/Decryption )".
+    1. Create a class called "CryptoService.java" which abstracts  following component .
+        It acts as block box containing "Keystore , cipher (encryption/Decryption )".
+    
     2. It provides interfaces for below functionality:
-     
      a. Encryption 
-     
      b. Decryption 
-     
-     c. Storing the encrypted Master Key in shared preference (in device APIL<23)  
+     c. Storing the encrypted Master Key in shared preference (in device APIL<23) 
+   
     3. "CryptoService". class handles below decisions based on android version(API level ) and type of encryption ,Decryption 
-    
          a. If API Level >=23
-        
              i. Create Master key (Android symmetric key ) if API level >=23
-    
          b. If API Level <23 and >=18
-        
-             i. Create Master key (default  java provided symmetric key) if API level <23 and >=18.
-       
-             ii. Create the Keppair(Private + Public) if   if API level <23 and >=18. Using "KeyPairGeneratorSpec "
-            
+             i. Create Master key (default  java provided symmetric key) if API level <23 and >=18.       
+            ii. Create the Keppair(Private + Public) if   if API level <23 and >=18. Using "KeyPairGeneratorSpec "
                  1. If API level <23 and <= 18 => we must use Using "KeyPairGeneratorSpec " for generating the key pair
-            
-                  2. If API level >23 we must use "KeyGenParameterSpec" as "KeyPairGeneratorSpec " is deprecated 
+                 2. If API level >23 we must use "KeyGenParameterSpec" as "KeyPairGeneratorSpec " is deprecated 
                      <= does not happen as we use symmetric key if API >23.
-                  If we want use specifically asymmetric crypto in device API>23 , then use "KeyGenParameterSpec".
-      
-             iii. Encrypt the Master Key generated in i step with public key (This is called wrap)  
+                      If we want use specifically asymmetric crypto in device API>23 , then use "KeyGenParameterSpec".
+           iii. Encrypt the Master Key generated in i step with public key (This is called wrap)  
                  <= when need to store in shared preference or secure transfer of hardware-based keys.
-       
-              iV. Decrypt the Master Key encrypted in iii step with privatekey (This is called unwrap) 
+            iV. Decrypt the Master Key encrypted in iii step with privatekey (This is called unwrap) 
                   <= when need to encrypt the sensitive information.
