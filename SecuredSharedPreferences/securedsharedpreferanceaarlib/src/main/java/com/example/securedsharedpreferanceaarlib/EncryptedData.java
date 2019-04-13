@@ -8,7 +8,7 @@ public class EncryptedData {
         mEncryptedString = encrptdStr;
         mIv = iVStr;
     }
-    String getEncryptedString(){return mEncryptedString;}
-    String getIv(){ return mIv; }
+    public String getEncryptedString(){return mEncryptedString;}
+    public String getIv(){ return mIv; }
 
 }

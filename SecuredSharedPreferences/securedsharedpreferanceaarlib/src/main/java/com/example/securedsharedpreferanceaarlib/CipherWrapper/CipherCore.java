@@ -13,17 +13,13 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 
 public class CipherCore {
-    //public  static final String TRANSFORMATION_ASYMMETRIC = "RSA/ECB/PKCS1Padding";
-    public static final String TRANSFORMATION_ASYMMETRIC = "RSA/ECB/PKCS1Padding";
     public static final String TRANSFORMATION_SYMMETRIC = "AES/CBC/PKCS7Padding";
     /**
      * This class wraps [Java Cipher] class apis with some additional possibilities.
      * Main logic of encryption and decryption happens here
      */
     private static final String TAG = "CipherCore";
-    private String mDecryptionIv;
     static byte[] mIv;
-    private String mEncryptedData;
     String mTransformation = null;
     Cipher mCipher;
 
@@ -34,15 +30,6 @@ public class CipherCore {
         mTransformation = transformation;
         init(transformation);
         Log.e(TAG, "CipherCore Con ");
-    }
-
-    // This is called for decryption
-    public CipherCore(String transformation, String encryptedData, String iv) throws
-            java.security.NoSuchAlgorithmException,
-            javax.crypto.NoSuchPaddingException {
-        init(transformation);
-        mEncryptedData = encryptedData;
-        mDecryptionIv = iv;
     }
 
     private void init(String transformation) throws
@@ -86,7 +73,7 @@ public class CipherCore {
             byte[] encryptedData = Base64.decode(data, Base64.DEFAULT);
             byte[] decodedData = mCipher.doFinal(encryptedData);  // Actual Decryption
             String str = new String(decodedData, "UTF-8");
-            Log.e(TAG, " Plan Tezt : " + str);
+            Log.e(TAG, " Plan Text : " + str);
             return str;
         } catch (Exception e) {
             e.printStackTrace();
