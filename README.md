@@ -99,10 +99,17 @@ Then encrypt this key raw data with RSA public key and save it in shared prefere
 #### Symmetric(secret key)        
 same secret key to both encrypt and decrypt the data.
 #### Asymmetric(public key cryptography)
-uses a public(Encryption)/private(Decryption) key pair to encrypt data(Usually case ). In below case Reverse is used (Public: Decrypt , Private: Encrypt). Asymmetric is not suitable for large data , Please see Hybrid for this.
- In case of Digital signature authorization => the authority uses their private key to encrypt the contents of the certificate, and this cipher text is attached to the certificate as its digital signature. 
+Uses a public(Encryption)/private(Decryption) key pair to encrypt data(Usually case ). 
+In below case Reverse is used (Public: Decrypt , Private: Encrypt). 
+
+Asymmetric is not suitable for large data , Please see Hybrid for this.
+
+In case of Digital signature authorization => the authority uses their private key to encrypt the contents of the certificate, and this cipher text is attached to the certificate as its digital signature. 
+
 Anyone can decrypt this signature using the authority’s public key, and verify that it results in the expected decrypted value. 
+
 Only the authority can encrypt content using the private key, and so only the authority can actually create a valid signature in the first place.
+
 #### Hybrid (Symmetric + Asymmetric ) 
    Symmetric (Secret) Key used to encrypt, decrypts the actual info , This secret key it self encrypted using Asymmetric (public/private).
 ### Overall flow management of Keystore , encryption ,Decryption , Cipher :
