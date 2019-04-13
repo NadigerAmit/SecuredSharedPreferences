@@ -49,14 +49,21 @@ This allows for ciphers to process an arbitrary amount of data without padding.
 ##### Modes of Operation :
 When encrypting using a simple block cipher, two identical blocks of plaintext will always produce an identical block of cipher text.
 Cryptanalysts trying to break the ciphertext will have an easier job if they note blocks of repeating text.
-In order to add more complexity to the text, feedback modes use the previous block of output to alter the input blocks before applying the encryption algorithm. 
+In order to add more complexity to the text, feedback modes use the previous block of output to alter the input blocks before applying
+the encryption algorithm. 
+
 The first block will need an initial value, and this value is called the initialization vector (IV)
 IV can be random and need not be secret .
+
 Modes EX:
+
      1. CBC (Cipher Block Chaining),  <=  each cipher data block depends on all plain data blocks processed up to that point.
           To make each message unique, an initialization vector must be used in the first block.
+     
      2. CFB (Cipher Feedback Mode), 
+     
      3. OFB (Output Feedback Mode). 
+     
      4. ECB (Electronic Codebook Mode)  <= ECB ciphertexts are the same if they use the same plaintext/key , Dont use for encryption.
           Note: ECB mode is the easiest block cipher mode to use and is the default in the JDK/JRE. 
           ECB works well for single blocks of data, but absolutely should not be used for multiple data blocks
