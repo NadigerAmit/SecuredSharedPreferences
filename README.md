@@ -36,9 +36,49 @@ The objective is to store  the store sensitive information , so that no one but 
           c. encrypted master key will be stored in shared preference.
           d. During decryption , reverse of  steps ii,iii will be done. (This unwrapping)
 ### Cipher
-### Initialization Vector (IV) 
-### Storage media
+#### Type of  ciphers:
+ ##### Block: 
+ Process entire blocks at a time, usually many bytes in length.
+ If there is not enough data to make a complete input block, the data must be padded to match cipher's block size.
+ The padded bytes are then stripped off during the decryption phase.
+       EX : "PKCS5PADDING, ,PKCS7Padding,PKCS1Padding ,etc
+##### Stream:
+Process incoming data one small unit (typically a byte or even a bit) at a time. 
+This allows for ciphers to process an arbitrary amount of data without padding.
 
+##### Modes of Operation :
+When encrypting using a simple block cipher, two identical blocks of plaintext will always produce an identical block of cipher text.
+Cryptanalysts trying to break the ciphertext will have an easier job if they note blocks of repeating text.
+In order to add more complexity to the text, feedback modes use the previous block of output to alter the input blocks before applying the encryption algorithm. 
+The first block will need an initial value, and this value is called the initialization vector (IV)
+IV can be random and need not be secret .
+Modes EX:
+     1. CBC (Cipher Block Chaining),  <=  each cipher data block depends on all plain data blocks processed up to that point.
+          To make each message unique, an initialization vector must be used in the first block.
+     2. CFB (Cipher Feedback Mode), 
+     3. OFB (Output Feedback Mode). 
+     4. ECB (Electronic Codebook Mode)  <= ECB ciphertexts are the same if they use the same plaintext/key , Dont use for encryption.
+          Note: ECB mode is the easiest block cipher mode to use and is the default in the JDK/JRE. 
+          ECB works well for single blocks of data, but absolutely should not be used for multiple data blocks
+
+###### 1. Creating the Cipher Object:
+    1. mCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");  <=  asymmetric cipher
+    2. mCipher = Cipher.getInstance("AES/CBC/PKCS7Padding);    <=  symmetric cipher
+###### Initializing a Cipher Object
+     A Cipher object obtained via getInstance must be initialized for one of four modes, which are defined as final integer constants in the Cipher class.
+     1. ENCRYPT_MODE  => Encryption of data.
+     2. DECRYPT_MODE  =>  Decryption of data.
+     3. WRAP_MODE        =>  Wrapping a java.security.Key into bytes so that the key can be securely transported.
+          Process of encrypting the  previously encrypted secret symmetric key(Master key ) with public key .
+     4. UNWRAP_MODE   =>  Unwrapping of a previously wrapped key into a java.security.Key object.
+         Process of decrypting  the previously encrypted secret symmetric key(Master Key)  with private key .
+
+EncryptedData  : The output of  encryption and input to Decryption.
+### Initialization Vector (IV) 
+    The first block will need an initial value, and this value is called the initialization vector (IV)
+    IV can be random and need not be secret .
+### Storage media
+    SharedPreference
 ## Master Key generation :
 This is independent of keyStore .(Used in device with api >=18 && <23  for big data )
 Create symmetric key(MASTER) with one of default Java Providers.  The most common default Java provider in android is the cut version of BC provider created by the popular third party Java cryptographic library provider — Bouncy Castle.
