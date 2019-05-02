@@ -1,5 +1,32 @@
 # Secured SharedPreferences
 
+## How to include the arr file in the Application
+### 1st method (just including the aar file in project )
+1. Copy the "securedsharedpreferanceaarlib-debug.aar" file in the libs dir in app directory.
+2. In app build.gradle specify following and click sync project with Gradle files. Open Project level build.gradle and add flatDir{dirs 'libs'} like did below
+     
+  allprojects {
+     repositories {
+      jcenter()
+      flatDir {
+        dirs 'libs'
+      }
+   }
+}
+3. and now open app level build.grdle file and add .aar file
+    dependencies {
+       implementation(name:'securedsharedpreferanceaarlib-debug', ext:'aar') // This is just aar file inclusion in Libs directory
+   }
+
+### 2nd method (Including the aar file as module dependency )
+The source code of aar file and "securedsharedpreferanceaarlib-debug.aar" and app will be the same directory.
+1. Open up the project structure by right-clicking on your project and choosing “Open Module Settings” or choosing “File” > “Project Structure…”
+2. Click the “+” button in the top left to add a new module.
+3. Choose “Import .JAR or securedsharedpreferanceaarlib-debug.AAR Package” and click the “Next” button.
+4. Find your file using the ellipsis button (“…”) beside the “File name” field. Studio will automatically create a subproject name. Just click “Finish”.
+5. Gradle will sync, which may take a few minutes. Add the new module as a dependency to your app. In the “Project Structure…” window, a new module i.e securedsharedpreferanceaarlib has appeared representing the SDK. Keep the app’s module selected and click on the Dependencies pane.
+6. Use the “+” button at the bottom of the dependencies screen, and choose “module dependency”. 
+
 ## The Android secure storage is based on JCA (Java cryptography architecture )
 
 If the device is rooted , the information stored in the shared preference is no more secure.
