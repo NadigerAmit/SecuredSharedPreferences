@@ -15,6 +15,7 @@
       }
       
 3. and now open app level build.grdle file and add .aar file
+          
           dependencies {
              implementation(name:'securedsharedpreferanceaarlib-debug', ext:'aar') // This is just aar file inclusion in Libs directory
           }
