@@ -59,18 +59,30 @@ The objective is to store  the store sensitive information , so that no one but 
 ## Components involved in this process 
 ### Keystore
     KeyStore objects are obtained by using one of the KeyStore getInstance(type) static factory methods.
+    
     Here Type can be many types ; Like  jks, pkcs12, "AndroidKeyStore ,etc..All these types are provided by different providers.
+    
     For Android we use : "AndroidKeyStore" provider.
+    
     Implementation looks like KeyStore.getInstance(ANDROID_KEY_STORE); // keyStore.provider.name= AndroidKeyStore and keyStore.type = AndroidKeyStore
+    
     Default Keystore  type in Android device is BKS (BouncyCastle) <= It should not be used. 
+    
     KeyStore.getInstance(KeyStore.getDefaultType()); <+= here KeyStore.getDefaultType() return BKS.
+    
 ### Key Generations
      1. Key generator  (Symmetric )
+     
      2. Key Pair generator (Asymmetric)
+     
           a. Master key which will be symmetric key 
+          
           b. This master key will be encrypted by asymmetric keys using public key which is stroed in key-store , this is called wrapping 
+          
           c. encrypted master key will be stored in shared preference.
+          
           d. During decryption , reverse of  steps ii,iii will be done. (This unwrapping)
+          
 ### Cipher
 #### Type of  ciphers:
  ##### Block: 
